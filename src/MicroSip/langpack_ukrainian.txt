@@ -1,0 +1,461 @@
+﻿Language Pack
+Last-Modified-Using: http://www.microsip.org/translation
+RTL: 0
+
+; utf8
+
+[Call]
+Виклик
+[End Call]
+Завершити виклик
+[Contacts]
+Контакти
+[Account]
+Акаунт
+[Settings]
+Налаштування
+[Visit Website]
+Відвідати сайт
+[Exit]
+Вихід
+[Browse...]
+Вибрати...
+[Default]
+За замовчуванням
+[Auto Answer]
+Авто відповідь
+[Disable Local Account]
+Вимкнути локальний акаунт
+[OK]
+ОК
+[Save]
+Зберегти
+[Cancel]
+Скасувати
+[SIP Server]
+SIP сервер
+[SIP Proxy]
+SIP проксі
+[Domain]
+Домен
+[Password]
+Пароль
+[Connecting...]
+З'єднання...
+[Online]
+У мережі
+[Local]
+Локальний
+[Message]
+Повідомлення
+[Edit]
+Змінити
+[Delete]
+Видалити
+[Add]
+Додати
+[Bad Gateway]
+Сервер не знайдений
+[Request Timeout]
+Таймаут запиту
+[Number]
+Номер
+[Name]
+Ім'я
+[Contact]
+Контакт
+[Incoming Call]
+Вхідний виклик
+[Answer]
+Відповісти
+[Decline]
+Відхилити
+[Calling]
+Викликаємо
+[Connecting]
+З'єднання
+[Connected]
+З'єднаний
+[Auto]
+Авто
+[Transport]
+Транспорт
+[Incorrect Password]
+Неправильний пароль
+[Public Address]
+Публічна адреса
+[Media Encryption]
+Шифрування медіа
+[Disabled]
+Вимкнено
+[Optional]
+Необов'язково
+[Mandatory]
+Обов'язково
+[STUN Server]
+STUN сервер
+[Presence Subscription]
+Підписка на присутність
+[Ringing]
+Йде виклик
+[Call Ended]
+Виклик завершено
+[Declined]
+Виклик відхилено
+[No address found]
+Адресу не знайдено
+[Request Terminated]
+Виклик завершено
+[Away]
+Відійшов
+[Publish Presence]
+Публікувати присутність
+[Session Progress]
+Сесія просувається
+[Camera]
+Камера
+[Video Call]
+Відеовиклик
+[Answer with Video]
+Відповісти з відео
+[View Log File]
+Перегляд файлу журналу
+[Microphone]
+Мікрофон
+[Speaker]
+Динамік
+[Video Codec]
+Відео кодек
+[Check for Updates]
+Перевірити оновлення
+[Daily]
+Щоденно
+[Weekly]
+Щотижнево
+[Monthly]
+Щомісяця
+[Quarterly]
+Щоквартально
+[Never]
+Ніколи
+[Update Available]
+Доступно оновлення
+[Force Codec for Incoming]
+Задавати кодек для вхідних
+[Invalid Number]
+Неправильний номер
+[Offline]
+Не у мережі
+[Single Call Mode]
+Режим одиночного виклику
+[Local Video]
+Локальне відео
+[Call Transfer]
+Передача виклику
+[final]
+останній
+[Call transfered successfully, disconnecting call]
+Виклик вдало перенаправлено, відключення
+[Hold]
+Утримання
+[Transfer]
+Перенаправлення
+[Sound Events]
+Звукові події
+[Bitrate]
+Бітрейт
+[Login]
+Лоґін
+[Enable Log File]
+Увімкнути файл журналу
+[Duration]
+Тривалість
+[Info]
+Інфо
+[display password]
+показати пароль
+[From]
+Від
+[To]
+Кому
+[Ring Device]
+Пристрій для виклику
+[Service Unavailable]
+Сервіс недоступний
+[Unable to connect to remote server.]
+Не вдається підключитися до віддаленого сервера.
+[Busy Here]
+Зайнято
+[Trying]
+Спроба
+[Method Not Allowed]
+Метод не дозволено
+[Not Found]
+Не знайдено
+[Always on Top]
+Завжди зверху
+[Connect]
+З'єднатися
+[Last Call]
+Останній виклик
+[Close All]
+Закрити всі
+[Copy]
+Копіювати
+[Select All]
+Вибрати все
+[Display Name]
+Ваше ім'я
+[Remember Details]
+Запам'ятати деталі
+[No]
+Ні
+[All Calls]
+Всі виклики
+[SIP Header]
+SIP заголовок
+[Different User]
+Інший користувач
+[Different Domain]
+Інший домен
+[Different User or Domain]
+Інший користувач або домен
+[Different Remote Domain]
+Інший віддалений домен
+[Deny Incoming]
+Заборонити вхідні
+[Allow IP Rewrite]
+Дозволити перезапис IP
+[Directory of Users]
+Каталог користувачів
+[Call on Remote Hold]
+Виклик на віддаленому утриманні
+[Call on Local Hold]
+Виклик на локальному утриманні
+[Call on Hold]
+Виклик на утриманні
+[Call is Active]
+Виклик активний
+[Menu]
+Меню
+[Edit Account]
+Змінити акаунт
+[Add Account...]
+Додати акаунт
+[Remove Account]
+Видалити акаунт
+[Make Active]
+Зробити активним
+[Are you sure you want to remove?]
+Ви дійсно бажаєте видалити?
+[Call Pickup]
+Перехоплення виклику
+[Speaker Level]
+Рівень динаміків
+[Microphone Level]
+Рівень мікрофону
+[Mute Speaker]
+Вимкнути динаміки
+[Mute Microphone]
+Вимкнути мікрофон
+[Please fill out at least the required fields marked with *.]
+Будь ласка, заповніть принаймні обов'язкові поля, відмічені *.
+[Ask your SIP provider how to configure the account correctly.]
+Дізнайтеся у вашого SIP-провайдера як правильно налаштувати акаунт.
+[Time]
+Час
+[Phone]
+Телефон
+[Ringtone]
+Звук виклику
+[Username]
+Ім'я користувача
+[Do you want to update now?]
+Ви хочете оновити зараз?
+[Available Codecs]
+Доступні кодеки
+[Enabled Codecs]
+Активні кодеки
+[Logs]
+Журнал
+[Random Popup Position]
+Випадкова позиція
+[Attended Transfer]
+Передача виклику з супроводом
+[Enable Local Account]
+Увімкнути локальний акаунт
+[Send Crash Report]
+Відсилати звіт про падіння
+[Account Name]
+Ім'я акаунта
+[Invite to Conference]
+Запросити до конференції
+[Merge]
+Об'єднати
+[Separate]
+Відокремити
+[Disconnect]
+Роз'єднати
+[DTMF Method]
+DTMF метод
+[Voicemail Number]
+Номер голосової пошти
+[Disable Session Timers]
+Вимкнути таймери сесії
+[Microphone Amplification]
+Підсилення мікрофону
+[Software Level Adjustment]
+Програмне регулювання рівня
+[Shortcuts]
+Швидкі кнопки
+[Enable]
+Включити
+[Label]
+Мітка
+[Type]
+Тип
+[Bottom Position]
+Розміщення внизу
+[You need to restart application for the changes to take effect.]
+Перезапустіть додаток щоб зміни вступили в силу.
+[Handle Media Buttons]
+Керування мультимедійними кнопками
+[Bring to Front on Incoming Call]
+На передній план при вхідному виклику
+[Help]
+Довідка
+[Video Bitrate]
+Бітрейт відео
+[Control Button]
+Кнопка керування
+[Do Not Disturb]
+Не турбувати
+[Source Port]
+Порт джерела
+[RTP Ports]
+RTP Порти
+[Import]
+Імпорт
+[Redial]
+Повторний виклик
+[Backspace]
+Повернути назад
+[Clear]
+Очистити
+[Use Space key to enable selected codec]
+Використовуйте клавішу пробіл щоб включити вибраний кодек
+[Use Delele key to disable selected codec]
+Використовуйте клавішу Delete щоб вимкнути кодек
+[Conference]
+Конференція
+[Dialing Prefix]
+Префікс набору
+[Register Refresh]
+Оновлення реєстрації
+[Keep-Alive]
+Підтримувати зв'язок
+[Ringtone Volume]
+Гучність дзвінка
+[Call Recording]
+Запис дзвінків
+[Nameserver]
+Сервер імен
+[Default List Action]
+Дія списку
+[Edit Local Account]
+Редагувати локальний акаунт
+[Export]
+Експорт
+[Call Waiting]
+Очікування виклику
+[Ready]
+Готово
+[Not online]
+Не у мережі
+[On the phone]
+На телефоні
+[First Name]
+Ім'я
+[Last Name]
+Прізвище
+[Phone Number]
+Номер телефону
+[Mobile Number]
+Номер мобільного
+[E-mail Address]
+Електронна адреса
+[Address]
+Адреса
+[City]
+Місто
+[State]
+Держава
+[Postal Code]
+Поштовий індекс
+[Comment]
+Прокоментуйте
+[close window to ignore call]
+закрити вікно, щоб ігнорувати дзвінок
+[Headset Support]
+Підтримка гарнітури
+[sec]
+сек
+[Call Forwarding]
+Переадресація викликів
+[Are you sure you want to delete?]
+Ви впевнені, що хочете видалити?
+[Delete contact]
+Видалити контакт
+[Account or credentials not found.]
+Обліковий запис або облікові дані не знайдено
+[Please fill out all required fields.]
+Будь ласка, заповніть усі обов’язкові поля.
+[Dial Plan]
+План набору
+[Disable Video]
+Вимкнути відео
+[Disable Messaging]
+Вимкніть обмін повідомленнями
+[Register]
+Зареєструйтесь
+[Unregister]
+Скасувати реєстрацію
+[Options]
+Варіанти
+[Delay]
+Затримка
+[Caller Number]
+Номер абонента
+[Unable to find default audio device]
+Звуковий пристрій не знайдено
+[Network is unreachable]
+Мережа недосяжна
+[Allow access to the microphone in your antivirus settings.]
+Дозвольте доступ до мікрофона в налаштуваннях антивірусу.
+[Fix microphone permission in the Windows settings (Windows Settings => Privacy => Microphone).]
+Виправте дозвіл на мікрофон у налаштуваннях Windows (Налаштування Windows =&gt; Конфіденційність =&gt; Мікрофон).
+[Speakers and microphone both are required. To make calls you must have input and output sound device in your system.]
+Динаміки та мікрофон потрібні. Для здійснення дзвінків у вашій системі повинен бути вхідний та вихідний звуковий пристрій.
+[Canceled]
+Скасовано
+[Unknown format]
+Невідомий формат
+[Softphone is not initialized. Check your settings.]
+Софтфон не ініціалізований. Перевірте свої налаштування.
+[Unable to initialize network sockets.]
+Не вдається ініціалізувати мережеві сокети.
+[Starred]
+Позначено зірочкою
+[Run at System Startup]
+Запустіть при запуску системи
+[Run Batch]
+Запустити пакет
+[Call URL]
+URL-адреса виклику
+[Call All]
+Телефонуйте всім
+[Custom]
+На замовлення
+[Add Contact]
+Додати контакт
+[]

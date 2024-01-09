@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3
+
+      - name: Build the application
+        run: |
+          dotnet publish --configuration=Release --output artifacts
+          Compress-Archive -Path artifacts/* -DestinationPath  ${{ github.workspace }}/call-centre.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: call-centre.zip
+          tag_name: ${{ github.event.head_commit.message }}
+          release_name: ${{ github.event.head_commit.message }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
