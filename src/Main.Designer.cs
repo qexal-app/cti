@@ -159,7 +159,7 @@
             MaximizeBox = false;
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Коллцентр";
+            Text = "Qexal CTI";
             FormClosing += Main_FormClosing;
             Load += Main_Load;
             toolStrip1.ResumeLayout(false);

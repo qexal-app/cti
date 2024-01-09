@@ -58,6 +58,34 @@ public partial class Main : Form
         versionLabel.Text = $"Версія: {version}";
 
         LoginUser();
+
+        try
+        {
+            UninstallPreviousVersion();
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            File.Delete(Path.Combine(desktopPath, "CallCentre.exe.lnk"));
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    private void UninstallPreviousVersion()
+    {
+        const string uninstallCommandString = "/x {0} /qn";
+
+        var process = new Process();
+        var startInfo = new ProcessStartInfo();
+        process.StartInfo = startInfo;
+
+        startInfo.UseShellExecute = false;
+        startInfo.RedirectStandardError = true;
+
+        startInfo.FileName = "msiexec.exe";
+        startInfo.Arguments = string.Format(uninstallCommandString, "{BFD0B8FC-3B0C-4970-BDD2-3B46D097230E}");
+
+        process.Start();
     }
 
     private async Task StartSignalR(string extension, string displayName)
@@ -327,7 +355,6 @@ public partial class Main : Form
             _refreshToken = loginResult.RefreshToken;
 
             _timer.Start();
-
         }
         catch (Exception exception)
         {

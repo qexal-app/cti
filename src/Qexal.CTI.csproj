@@ -8,7 +8,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>main.ico</ApplicationIcon>
-		<Version>1.0.0.54</Version>
+		<Version>1.0.0.55</Version>
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
