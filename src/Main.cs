@@ -10,6 +10,7 @@ using IdentityModel.OidcClient;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Win32;
 using Qexal.CTI.Models;
+using Serilog;
 using Timer = System.Timers.Timer;
 
 namespace Qexal.CTI;
@@ -59,33 +60,56 @@ public partial class Main : Form
 
         LoginUser();
 
-        try
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Seq("https://seq.sys.qexal.app", apiKey: "kUb1QiqtUG5cCSBQuEKu")
+            .CreateLogger();
+
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        if (Directory.Exists(Path.Combine(appData, "Femma", "CallCentre")))
         {
+            Log.Warning("Знайдено застарілу версію, спроба видалити її");
             UninstallPreviousVersion();
-            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            File.Delete(Path.Combine(desktopPath, "CallCentre.exe.lnk"));
         }
-        catch
+        else if (Directory.Exists(Path.Combine(appData, "Femma")))
         {
-            // ignored
+            Log.Warning("Знайдено папку Femma, спроба видалити її");
+            Directory.Delete(Path.Combine(appData, "Femma"));
         }
+        else
+        {
+            Log.Information("В системі не знайдено застарілих версій");
+        }
+
+        Log.CloseAndFlush();
     }
+
 
     private void UninstallPreviousVersion()
     {
-        const string uninstallCommandString = "/x {0} /qn";
+        try
+        {
+            const string uninstallCommandString = "/x {0} /qn";
 
-        var process = new Process();
-        var startInfo = new ProcessStartInfo();
-        process.StartInfo = startInfo;
+            var process = new Process();
+            var startInfo = new ProcessStartInfo();
+            process.StartInfo = startInfo;
 
-        startInfo.UseShellExecute = false;
-        startInfo.RedirectStandardError = true;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardError = true;
 
-        startInfo.FileName = "msiexec.exe";
-        startInfo.Arguments = string.Format(uninstallCommandString, "{BFD0B8FC-3B0C-4970-BDD2-3B46D097230E}");
+            startInfo.FileName = "msiexec.exe";
+            startInfo.Arguments = string.Format(uninstallCommandString, "{BFD0B8FC-3B0C-4970-BDD2-3B46D097230E}");
 
-        process.Start();
+            process.Start();
+
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            File.Delete(Path.Combine(desktopPath, "CallCentre.exe.lnk"));
+        }
+        catch (Exception e)
+        {
+            Log.Warning(e, "Помилка при видаленні застарілої версії");
+            // ignored
+        }
     }
 
     private async Task StartSignalR(string extension, string displayName)

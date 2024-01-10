@@ -8,8 +8,7 @@ static class Program
     static void Main()
     {
         if (!Mutex.WaitOne(TimeSpan.Zero, true)) return;
-        Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(false);
+        ApplicationConfiguration.Initialize();
         Application.Run(new Main());
         Mutex.ReleaseMutex();
     }

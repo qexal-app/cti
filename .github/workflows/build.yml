@@ -19,7 +19,7 @@ jobs:
 
       - name: Build the application
         run: |
-          dotnet publish --configuration=Release --output artifacts
+          dotnet publish -r win-x86 -p:PublishSingleFile=true --self-contained true --configuration=Release --output artifacts
           Compress-Archive -Path artifacts/* -DestinationPath  ${{ github.workspace }}/call-centre.zip
 
       - name: Create Release

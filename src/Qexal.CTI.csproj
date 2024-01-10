@@ -8,16 +8,15 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>main.ico</ApplicationIcon>
-		<Version>1.0.0.55</Version>
-		<PublishSingleFile>true</PublishSingleFile>
-		<SelfContained>true</SelfContained>
-		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+		<Version>1.0.0.56</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Autoupdater.NET.Official" Version="1.8.4" />
 		<PackageReference Include="IdentityModel.OidcClient" Version="5.2.1" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.9" />
+		<PackageReference Include="Serilog" Version="3.1.1" />
+		<PackageReference Include="Serilog.Sinks.Seq" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
