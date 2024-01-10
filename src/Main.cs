@@ -79,8 +79,6 @@ public partial class Main : Form
         {
             Log.Information("В системі не знайдено застарілих версій");
         }
-
-        Log.CloseAndFlush();
     }
 
 
@@ -108,7 +106,6 @@ public partial class Main : Form
         catch (Exception e)
         {
             Log.Warning(e, "Помилка при видаленні застарілої версії");
-            // ignored
         }
     }
 
@@ -127,7 +124,9 @@ public partial class Main : Form
                 options.AccessTokenProvider = () => Task.FromResult(_accessToken);
             })
             .WithAutomaticReconnect(new RetryPolicy())
+            .WithStatefulReconnect()
             .Build();
+
         await _connection.StartAsync();
 
         _connection.On("ClosePhone", ClosePhone);
@@ -162,6 +161,8 @@ public partial class Main : Form
         {
             // ignored
         }
+
+        Log.CloseAndFlush();
     }
 
     private async void MyTimer_TickAsync(object sender, ElapsedEventArgs e)
