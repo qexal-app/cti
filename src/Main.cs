@@ -471,7 +471,7 @@ public partial class Main : Form
         var buffer = Encoding.UTF8.GetBytes(responseString);
         response.ContentLength64 = buffer.Length;
         var responseOutput = response.OutputStream;
-        await responseOutput.WriteAsync(buffer, 0, buffer.Length);
+        await responseOutput.WriteAsync(buffer);
         responseOutput.Close();
     }
 
