@@ -3,7 +3,7 @@
 public static class Constants
 {
     public const string UpdateUrl = "https://raw.githubusercontent.com/qexal-app/cti/main/version.xml";
-    public const string Authority = "https://sso.qexal.app";
+    public const string Authority = "https://accounts.qexal.app";
 
 #if DEBUG
     public const string ApiUrl = "https://localhost:7232/";
