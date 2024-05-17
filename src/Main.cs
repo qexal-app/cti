@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Timers;
 using System.Web;
 using AutoUpdaterDotNET;
@@ -17,7 +18,7 @@ namespace Qexal.CTI;
 public partial class Main : Form
 {
     private Process _process;
-    private ConfigurationDto _account;
+    private ConfigurationDto? _account;
     private OidcClient _oidcClient;
     private Timer _timer;
     private HubConnection _connection;
@@ -51,43 +52,75 @@ public partial class Main : Form
     {
         InitializeComponent();
 
+        AutoUpdater.ClearAppDirectory = true;
         AutoUpdater.RunUpdateAsAdmin = false;
+        AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+        AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
+        AutoUpdater.HttpUserAgent = "PostmanRuntime/7.38.0";
+
         AutoUpdater.Start(Constants.UpdateUrl);
 
         var version = Assembly.GetEntryAssembly()?.GetName().Version;
-        versionLabel.Text = $"Версія: {version}";
+        versionLabel.Text = $@"Версія: {version}";
 
         LoginUser();
+    }
+
+    private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
+    {
+        var release = JsonNode.Parse(args.RemoteData)!;
+        var version = release["name"]!.GetValue<string>().TrimStart('v');
+        var downloadUrl = release["assets"]![0]!["browser_download_url"]!.GetValue<string>();
+
+        args.UpdateInfo = new UpdateInfoEventArgs
+        {
+            CurrentVersion = version,
+            DownloadURL = downloadUrl,
+            Mandatory = new Mandatory
+            {
+                Value = true,
+                UpdateMode = Mode.ForcedDownload
+            }
+        };
+    }
+
+    private void AutoUpdater_ApplicationExitEvent()
+    {
+        ClosePhone();
+        Application.Exit();
     }
 
     private async Task StartSignalR(string extension, string displayName)
     {
         var version = Assembly.GetEntryAssembly()?.GetName().Version;
 
-        _connection = new HubConnectionBuilder()
-            .WithUrl(Constants.ApiUrl + "ctiHub", options =>
-            {
-                options.Headers.Add("Extension", extension);
-                options.Headers.Add("DisplayName", HttpUtility.UrlEncode(displayName));
-                options.Headers.Add("Version", version?.ToString());
-                options.Headers.Add("MAC", Helpers.GetMacAddress());
-                options.Headers.Add("Os", Helpers.GetWindowsVersion());
-                options.AccessTokenProvider = () => Task.FromResult(_accessToken);
-            })
-            .WithAutomaticReconnect(new RetryPolicy())
-            .WithStatefulReconnect()
-            .Build();
-
-        await _connection.StartAsync();
-
-        _connection.On("ClosePhone", ClosePhone);
-        _connection.On("OpenPhone", () => OpenPhone(_account));
-
-        _connection.Closed += async error =>
+        if (!string.IsNullOrEmpty(_accessToken))
         {
-            await Task.Delay(1000);
+            _connection = new HubConnectionBuilder()
+                .WithUrl(Constants.ApiUrl + "ctiHub", options =>
+                {
+                    options.Headers.Add("Extension", extension);
+                    options.Headers.Add("DisplayName", HttpUtility.UrlEncode(displayName));
+                    options.Headers.Add("Version", version?.ToString()!);
+                    options.Headers.Add("MAC", Helpers.GetMacAddress());
+                    options.Headers.Add("Os", Helpers.GetWindowsVersion());
+                    options.AccessTokenProvider = () => Task.FromResult(_accessToken)!;
+                })
+                .WithAutomaticReconnect(new RetryPolicy())
+                .WithStatefulReconnect()
+                .Build();
+
             await _connection.StartAsync();
-        };
+
+            _connection.On("ClosePhone", ClosePhone);
+            _connection.On("OpenPhone", () => OpenPhone(_account));
+
+            _connection.Closed += async _ =>
+            {
+                await Task.Delay(1000);
+                await _connection.StartAsync();
+            };
+        }
     }
 
     private void Main_Load(object sender, EventArgs e)
@@ -96,7 +129,7 @@ public partial class Main : Form
 
         _timer = new Timer(180000);
 
-        _timer.Elapsed += MyTimer_TickAsync;
+        _timer.Elapsed += RefreshToken!;
         _timer.Enabled = true;
 
         GC.KeepAlive(_timer);
@@ -114,7 +147,7 @@ public partial class Main : Form
         }
     }
 
-    private async void MyTimer_TickAsync(object sender, ElapsedEventArgs e)
+    private async void RefreshToken(object sender, ElapsedEventArgs e)
     {
         var refreshToken = await _oidcClient.RefreshTokenAsync(_refreshToken);
         if (refreshToken.IsError)
@@ -128,7 +161,7 @@ public partial class Main : Form
 
     #region Phone
 
-    private void OpenPhone(ConfigurationDto account)
+    private void OpenPhone(ConfigurationDto? account)
     {
         using (var sw = File.CreateText(_microSipConfigPath))
         {
@@ -151,15 +184,15 @@ public partial class Main : Form
             var result = _process.Start();
             if (!result)
             {
-                MessageBox.Show("Помилка запуску телефону", "Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show(@"Помилка запуску телефону", @"Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
 
             _process.EnableRaisingEvents = true;
-            _process.Exited += Process_Exited;
+            _process.Exited += Process_Exited!;
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message, "Помилка запуску телефону", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            MessageBox.Show(ex.Message, @"Помилка запуску телефону", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
         }
     }
 
@@ -183,7 +216,7 @@ public partial class Main : Form
         }
         catch
         {
-            MessageBox.Show("Не вдалося закрити модуль 'MicroSip'", "Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            MessageBox.Show(@"Не вдалося закрити модуль 'MicroSip'", @"Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
         }
 
         try
@@ -193,7 +226,7 @@ public partial class Main : Form
         }
         catch
         {
-            _process?.Kill();
+            _process.Kill();
 
             Thread.Sleep(1000);
 
@@ -227,7 +260,7 @@ public partial class Main : Form
 
     private void RegisterForSystemEvents()
     {
-        SystemEvents.EventsThreadShutdown += OnEventsThreadShutdown;
+        SystemEvents.EventsThreadShutdown += OnEventsThreadShutdown!;
         SystemEvents.PowerModeChanged += OnPowerModeChanged;
         SystemEvents.SessionSwitch += OnSessionSwitch;
         SystemEvents.SessionEnding += OnSessionEnding;
@@ -235,7 +268,7 @@ public partial class Main : Form
 
     private void UnregisterFromSystemEvents()
     {
-        SystemEvents.EventsThreadShutdown -= OnEventsThreadShutdown;
+        SystemEvents.EventsThreadShutdown -= OnEventsThreadShutdown!;
         SystemEvents.PowerModeChanged -= OnPowerModeChanged;
         SystemEvents.SessionSwitch -= OnSessionSwitch;
         SystemEvents.SessionEnding -= OnSessionEnding;
@@ -334,7 +367,7 @@ public partial class Main : Form
         {
             httpListener.Stop();
 
-            var result = MessageBox.Show(exception.Message, "Помилка", MessageBoxButtons.RetryCancel);
+            var result = MessageBox.Show(exception.Message, @"Помилка", MessageBoxButtons.RetryCancel);
             if (result == DialogResult.Retry)
             {
                 LoginUser();
@@ -354,7 +387,7 @@ public partial class Main : Form
 
         if (loginResult.IsError)
         {
-            var result = MessageBox.Show(this, loginResult.Error, "Вхід", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            var result = MessageBox.Show(this, loginResult.Error, @"Вхід", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             if (result == DialogResult.Retry)
             {
                 LoginUser();
@@ -367,7 +400,7 @@ public partial class Main : Form
                 var http = new HttpWrapper(loginResult.AccessToken);
                 _account = http.Invoke<ConfigurationDto>("GET", Constants.AutoProvisioningUrl, string.Empty);
 
-                userLabel.Text = _account.DisplayName;
+                userLabel.Text = _account!.DisplayName;
                 lineLabel.Text = _account.InternalNumber.ToString();
 
                 await StartSignalR(_account.InternalNumber.ToString(), _account.DisplayName);
@@ -385,9 +418,9 @@ public partial class Main : Form
                         var config = Encoding.UTF8.GetString(data);
                         var account = JsonSerializer.Deserialize<ConfigurationDto>(config);
 
-                        if (account.DateTime.Date != DateTime.Now.Date)
+                        if (account!.DateTime.Date != DateTime.Now.Date)
                         {
-                            MessageBox.Show("Застосовано невірний код", "Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                            MessageBox.Show(@"Застосовано невірний код", @"Помилка", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                             Close();
                         }
 

@@ -5,16 +5,9 @@ using System.Text.Json;
 
 namespace Qexal.CTI;
 
-public class HttpWrapper
+public class HttpWrapper(string accessToken)
 {
-    private readonly string _accessToken;
-
-    public HttpWrapper(string accessToken)
-    {
-        _accessToken = accessToken;
-    }
-
-    public T Invoke<T>(string method, string uri, string body)
+    public T? Invoke<T>(string method, string uri, string body)
     {
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
@@ -28,7 +21,7 @@ public class HttpWrapper
         var name = Assembly.GetEntryAssembly()?.GetName().Name;
 
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
         httpClient.DefaultRequestHeaders.Add("User-Agent", $"{name} {version}");
         httpClient.DefaultRequestHeaders.Add("MAC", Helpers.GetMacAddress());
         httpClient.DefaultRequestHeaders.Add("Windows", Helpers.GetWindowsVersion());
