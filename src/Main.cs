@@ -52,7 +52,6 @@ public partial class Main : Form
     {
         InitializeComponent();
 
-        AutoUpdater.ClearAppDirectory = true;
         AutoUpdater.RunUpdateAsAdmin = false;
         AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
         AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
@@ -69,7 +68,7 @@ public partial class Main : Form
     private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
     {
         var release = JsonNode.Parse(args.RemoteData)!;
-        var version = release["name"]!.GetValue<string>().TrimStart('v');
+        var version = release["name"]!.GetValue<string>();
         var downloadUrl = release["assets"]![0]!["browser_download_url"]!.GetValue<string>();
 
         args.UpdateInfo = new UpdateInfoEventArgs
