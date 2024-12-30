@@ -287,7 +287,7 @@ SIP заголовок
 [Send Crash Report]
 Відсилати звіт про падіння
 [Account Name]
-Ім'я акаунта
+Ім'я акаунту
 [Invite to Conference]
 Запросити до конференції
 [Merge]
@@ -336,6 +336,8 @@ DTMF метод
 RTP Порти
 [Import]
 Імпорт
+[Blind Transfer]
+Сліпа передача
 [Redial]
 Повторний виклик
 [Backspace]
@@ -438,8 +440,6 @@ RTP Порти
 Динаміки та мікрофон потрібні. Для здійснення дзвінків у вашій системі повинен бути вхідний та вихідний звуковий пристрій.
 [Canceled]
 Скасовано
-[Unknown format]
-Невідомий формат
 [Softphone is not initialized. Check your settings.]
 Софтфон не ініціалізований. Перевірте свої налаштування.
 [Unable to initialize network sockets.]
@@ -458,4 +458,42 @@ URL-адреса виклику
 На замовлення
 [Add Contact]
 Додати контакт
+[Incorrect dialing or non-existent number]
+Неправильний набір або неіснуючий номер
+[End]
+Завершити виклик
+[Address Incomplete]
+Адреса неповна
+[Not acceptable here]
+Тут неприйнятно
+[Idle]
+Вільний
+[Toggle]
+Перемикач
+[Connection refused]
+З&#39;єднання відхилено
+[Connection timed out]
+Тайм-аут підключення
+[Cannot get IP address of the called host]
+Не вдається отримати IP-адресу викликаного хоста
+[Answered Elsewhere]
+Відповів в іншому місці
+[Missed Call]
+Пропущений виклик
+[Do you want to delete user data and program settings? This action cannot be undone.]
+Бажаєте видалити дані користувача та налаштування програми? Цю дію не можна скасувати.
+[Unavailable]
+Недоступний
+[Call Limit]
+Ліміт дзвінків
+[Hide Caller ID]
+Приховати ідентифікатор абонента
+[Feature Codes]
+Коди функцій
+[Connection Failed]
+Збій підключення
+[The server returned an error code:]
+Сервер повернув код помилки:
+[The received data cannot be recognized]
+Отримані дані не можуть бути розпізнані
 []
